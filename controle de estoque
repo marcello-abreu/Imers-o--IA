@@ -1,0 +1,68 @@
+import datetime
+
+# Dicionário para armazenar o estoque inicial de alimentos
+estoque = {
+    "Arroz": 50,
+    "Feijão": 20,
+    "Carne": 15,
+    "Frango": 10,
+    "Salada": 30,
+    "Fruta": 25,
+}
+
+# Função para registrar o consumo diário
+def registrar_consumo():
+    data = datetime.date.today()
+    alimento = input("Digite o nome do alimento: ")
+    quantidade = int(input("Digite a quantidade consumida: "))
+
+    if alimento in estoque:
+        if estoque[alimento] >= quantidade:
+            estoque[alimento] -= quantidade
+            print(f"{quantidade} {alimento} consumidos em {data}. Estoque atualizado.")
+        else:
+            print(f"Quantidade insuficiente de {alimento}. Estoque atual: {estoque[alimento]}.")
+    else:
+        print(f"Alimento não encontrado no estoque.")
+
+# Função para visualizar o estoque atual
+def visualizar_estoque():
+    for alimento, quantidade in estoque.items():
+        print(f"{alimento}: {quantidade}")
+
+# Função para gerar alerta de estoque baixo
+def gerar_alerta_estoque():
+    nivel_minimo = {
+        "Arroz": 10,
+        "Feijão": 5,
+        "Carne": 3,
+        "Frango": 2,
+        "Salada": 15,
+        "Fruta": 10,
+    }
+
+    for alimento, quantidade in estoque.items():
+        if quantidade <= nivel_minimo[alimento]:
+            print(f"**Alerta:** Estoque de {alimento} está baixo ({quantidade}).")
+
+# Menu principal
+while True:
+    print("\nMenu Principal:")
+    print("1. Registrar consumo diário")
+    print("2. Visualizar estoque atual")
+    print("3. Gerar alerta de estoque baixo")
+    print("4. Sair")
+
+    opcao = int(input("Digite sua opção: "))
+
+    if opcao == 1:
+        registrar_consumo()
+    elif opcao == 2:
+        visualizar_estoque()
+    elif opcao == 3:
+        gerar_alerta_estoque()
+    elif opcao == 4:
+        print("Saindo do programa...")
+        break
+    else:
+        print("Opção inválida. Tente novamente.")
